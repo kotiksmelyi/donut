@@ -6,6 +6,7 @@ import { Charts } from "./pages/charts"
 import { Finances } from "./pages/finances"
 import { Navbar } from './components/Navbar';
 import { History } from "./pages/history"
+import { Widg } from './pages/widget';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path='/dashboard' element={<Charts />}></Route>
           <Route path='/finances' element={<Finances />}></Route>
           <Route path='/donuts' element={<History />}></Route>
+          <Route path='/widg' element={<Widg />}></Route>
       </Routes>
       </div>
     </div>
