@@ -1,17 +1,34 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { DonutTemp } from "../components/donutTemp"
 import { token } from "../components/token"
 import { Donation } from "../model"
 
-
 export function History() {
+    const [newMessage, setNewMessage] = useState()
+    const ws = useRef(null)
+
+    useEffect(() => {
+        // @ts-ignore
+        ws.current = new WebSocket("ws://78.140.241.21:8300/ws/donations/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAwMTYzMzc2LCJqdGkiOiI2ZTQ1YjRmNzMwOWI0ZjViYThhMjBmNjUxZjQ0YjRkNyIsInVzZXJfaWQiOjJ9.Fe5ocRRSEwtnxT7jMKRsEXsN_mzuy0lh_-HIn_hBixc");
+    }, [ws]);
+
+        useEffect(() => {
+        if (!ws.current) return;
+        // @ts-ignore
+        ws.current.onmessage = e => {
+        const message = JSON.parse(e.data);
+        setNewMessage(message)
+        fetchDonuts()
+        };
+    }, []);
+
     const [donuts, setDonuts] = useState<Donation[]>([])
     async function fetchDonuts() {
         const response = await axios.get<Donation[]>('http://78.140.241.21:8300/donation/received-donations', { headers: { "Authorization": `Bearer ${token}` } })
         setDonuts(response.data)
     }
-    
+
     useEffect(() => {
         fetchDonuts()
     }, [])
@@ -35,7 +52,7 @@ export function History() {
 
 
 
-            <div className="flex flex-col h-screen w-2/3 bg-second rounded-lg mt-5">
+            <div className="flex flex-col h-screen w-2/3 bg-second rounded-lg mt-5 overflow-scroll">
                 {donuts.map(donut => <DonutTemp donut={donut} key={donut.id} />)}
             </div>
         </div>

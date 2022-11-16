@@ -24,7 +24,7 @@ export function Finances () {
 
                 <div className="flex flex-col mt-16 ml-5 items-start">
                 <h1 className="text-white text-xl">Баланс</h1>
-                <h3 className="text-orange text-7xl font-bold">{users.balance}</h3>
+                <h3 className="text-orange text-4xl font-bold">{users.balance}</h3>
                 </div>
 
                 <div className="mt-5">
