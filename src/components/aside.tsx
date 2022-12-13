@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Menus } from "./Menus"
-import { Routes, Route, Link, } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export function Aside() {
     const [open, setOpen] = useState(true)

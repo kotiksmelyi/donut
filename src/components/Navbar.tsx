@@ -18,7 +18,7 @@ export function Navbar() {
 
 
     return (
-        <div>
+        <div className="navbar h-14">
             <UserInfo {...users} />
         </div>
     )
